@@ -7,6 +7,7 @@ export default class Cart{
         this.container.innerHTML=``;
         this.setNav();
         this.setMain();
+        this.setFooter();
         this.nav=document.querySelector('nav');
         this.nav.addEventListener('click',this.handleClickNav);
     }
@@ -158,5 +159,52 @@ export default class Cart{
             let home=new Home();
         }
 
+    }
+     setFooter=()=>{
+        let footer=document.createElement('footer');
+        footer.innerHTML=`
+        
+    <footer class="mt-5 py-5">
+    <div class="row container mx-auto pt-5">
+        <div class="footer-one col-lg-3 col-md-6 col-12">
+            <img src="img/logo2.png" alt="">
+            <p class="pt-3">Fringilla urna porttitor rhoncus dolor purus luctus venenatis lectus magna fringilla diam maecenas ultricies mi eget mauris.</p>
+        </div>
+        <div class="footer-one col-lg-3 col-md-6 col-12 mb-3">
+            <h5 class="pb-2">Featured</h5>
+            <ul class="text-uppercase list-unstyled">
+                <li><a href="#">men</a></li>
+                <li><a href="#">women</a></li>
+                <li><a href="#">boys</a></li>
+                <li><a href="#">girls</a></li>
+                <li><a href="#">new arrivals</a></li>
+                <li><a href="#">shoes</a></li>
+                <li><a href="#">cloths</a></li>
+
+            </ul>
+        </div>
+        <div class="footer-one col-lg-3 col-md-6 col-12 mb-3">
+            <h5 class="pb-2">Contact Us</h5>
+            <div>
+                <h6 class="text-uppercase">Address</h6>
+                <p>123 STREET NAME, CITY, US</p>
+            </div>
+            <div>
+                <h6 class="text-uppercase">Phone</h6>
+                <p>(123) 456-7890</p>
+            </div>
+            <div>
+                <h6 class="text-uppercase">Email</h6>
+                <p>MAIL@EXAMPLE.COM</p>
+            </div>
+        </div>
+
+      
+    </div>
+
+    
+</footer>
+`
+this.container.appendChild(footer);
     }
 }
