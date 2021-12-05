@@ -1,4 +1,4 @@
-import Data from "../Data.js";
+import Data from "../API/Data.js";
 import Cart from "./Cart.js";
 import Product from "./Product.js";
 import Shop from "./Shop.js";
@@ -17,8 +17,10 @@ export default class Home{
         this.main.addEventListener('click',this.handleClickProduct);
         this.produs={};
         this.data=new Data();
-        this.generateProducts();
-        console.log(this.data.getProducts());
+        // this.generateProducts();
+        // this.data.createProducts();
+        this.generateProductsDb();
+       
 
     }
 
@@ -113,9 +115,8 @@ export default class Home{
 
     <section id="featured" class="my-5 pb-5 men-section">
         <div class="container text-center mt-5 py-5">
-            <h3>Our Featured</h3>
+            <h3>Men section</h3>
             <hr class="mx-auto">
-            <p>Here you can check out our new products with fair price on rymo.</p>
         </div>
         <div class="row mx-auto container-fluid products-men">
           
@@ -130,189 +131,34 @@ export default class Home{
         </div>
     </section>
 
-    <section id="clothes" class="my-5">
+    <section id="clothes" class="my-5 women-section">
         <div class="container text-center mt-5 py-5">
-            <h3>Dresses & Jumpsuits</h3>
+            <h3>Women section</h3>
             <hr class="mx-auto">
-            <p>Here you can check out our new products with fair price on rymo.</p>
         </div>
-        <div class="row mx-auto container-fluid">
-            <div class="product text-center col-lg-3 col-md-4 col-12">
-                <img class="img-fluid mb-3" src="img/clothes/1.jpg" alt="">
-                <div class="star">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <h5 class="p-name">Sport Boots</h5>
-                <h4 class="p-price">$92.00</h4>
-                <button class="buy-btn">Buy Now</button>
-            </div>
-            <div class="product text-center col-lg-3 col-md-4 col-12">
-                <img class="img-fluid mb-3" src="img/clothes/2.jpg" alt="">
-                <div class="star">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <h5 class="p-name">Sport Boots</h5>
-                <h4 class="p-price">$92.00</h4>
-                <button class="buy-btn">Buy Now</button>
-            </div>
-            <div class="product text-center col-lg-3 col-md-4 col-12">
-                <img class="img-fluid mb-3" src="img/clothes/3.jpg" alt="">
-                <div class="star">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <h5 class="p-name">Sport Boots</h5>
-                <h4 class="p-price">$92.00</h4>
-                <button class="buy-btn">Buy Now</button>
-            </div>
-            <div class="product text-center col-lg-3 col-md-4 col-12">
-                <img class="img-fluid mb-3" src="img/clothes/1.jpg" alt="">
-                <div class="star">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <h5 class="p-name">Sport Boots</h5>
-                <h4 class="p-price">$92.00</h4>
-                <button class="buy-btn">Buy Now</button>
-            </div>
+        <div class="row mx-auto container-fluid products-women">
+           
         </div>
     </section>
 
-    <section id="watches" class="my-5">
+    <section id="watches" class="my-5 jewlery-category" >
         <div class="container text-center mt-5 py-5">
-            <h3>Best Watches</h3>
+            <h3>Jewlery</h3>
             <hr class="mx-auto">
-            <p>Here you can check out our new products with fair price on rymo.</p>
         </div>
-        <div class="row mx-auto container-fluid">
-            <div class="product text-center col-lg-3 col-md-4 col-12">
-                <img class="img-fluid mb-3" src="img/watches/1.jpg" alt="">
-                <div class="star">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <h5 class="p-name">Sport Boots</h5>
-                <h4 class="p-price">$92.00</h4>
-                <button class="buy-btn">Buy Now</button>
-            </div>
-            <div class="product text-center col-lg-3 col-md-4 col-12">
-                <img class="img-fluid mb-3" src="img/watches/2.jpg" alt="">
-                <div class="star">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <h5 class="p-name">Sport Boots</h5>
-                <h4 class="p-price">$92.00</h4>
-                <button class="buy-btn">Buy Now</button>
-            </div>
-            <div class="product text-center col-lg-3 col-md-4 col-12">
-                <img class="img-fluid mb-3" src="img/watches/3.jpg" alt="">
-                <div class="star">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <h5 class="p-name">Sport Boots</h5>
-                <h4 class="p-price">$92.00</h4>
-                <button class="buy-btn">Buy Now</button>
-            </div>
-            <div class="product text-center col-lg-3 col-md-4 col-12">
-                <img class="img-fluid mb-3" src="img/watches/1.jpg" alt="">
-                <div class="star">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <h5 class="p-name">Sport Boots</h5>
-                <h4 class="p-price">$92.00</h4>
-                <button class="buy-btn">Buy Now</button>
-            </div>
+        <div class="row mx-auto container-fluid  products-jewlery">
+         
+               
         </div>
     </section>
 
-    <section id="shoes" class="my-5 pb-5">
+    <section id="shoes" class="my-5 pb-5 electronics">
         <div class="container text-center mt-5 py-5">
-            <h3>Running Shoes</h3>
+            <h3>Electronics</h3>
             <hr class="mx-auto">
-            <p>Here you can check out our new products with fair price on rymo.</p>
         </div>
-        <div class="row mx-auto container-fluid">
-            <div class="product text-center col-lg-3 col-md-4 col-12">
-                <img class="img-fluid mb-3" src="img/shoes/8.jpg" alt="">
-                <div class="star">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <h5 class="p-name">Sport Boots</h5>
-                <h4 class="p-price">$92.00</h4>
-                <button class="buy-btn">Buy Now</button>
-            </div>
-            <div class="product text-center col-lg-3 col-md-4 col-12">
-                <img class="img-fluid mb-3" src="img/shoes/7.jpg" alt="">
-                <div class="star">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <h5 class="p-name">Sport Boots</h5>
-                <h4 class="p-price">$92.00</h4>
-                <button class="buy-btn">Buy Now</button>
-            </div>
-            <div class="product text-center col-lg-3 col-md-4 col-12">
-                <img class="img-fluid mb-3" src="img/shoes/6.jpg" alt="">
-                <div class="star">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <h5 class="p-name">Sport Boots</h5>
-                <h4 class="p-price">$92.00</h4>
-                <button class="buy-btn">Buy Now</button>
-            </div>
-            <div class="product text-center col-lg-3 col-md-4 col-12">
-                <img class="img-fluid mb-3" src="img/shoes/5.jpg" alt="">
-                <div class="star">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <h5 class="p-name">Sport Boots</h5>
-                <h4 class="p-price">$92.00</h4>
-                <button class="buy-btn">Buy Now</button>
-            </div>
+        <div class="row mx-auto container-fluid products-electronic">
+           
         </div>
     </section>
         
@@ -380,7 +226,6 @@ this.container.appendChild(footer);
 
     handleClickProduct=(e)=>{
         let obj=e.target;
-        console.log(obj);
         if(obj.classList.contains("buy-btn")){
           let produsCont=e.target.parentNode;
            this.produs={
@@ -392,39 +237,125 @@ this.container.appendChild(footer);
            let product=new Product(this.produs);
         }
     }
-    async generateProducts(){
+    async generateProductsDb(){
+    
         try{
-            let d=await this.data.getProducts();
+            let d=await this.data.getProductsDb();
+         
             if(d!==null){
-               
-                this.insertProducts(d);
-            }
+
+        this.insertProducts(d);
+    }
+            
+  
+           
         }catch(e){
             return new Error(e);
         }
     }
+    async addPhoto(){
+        let img= await this.returnImages();
+
+        let produse=document.querySelectorAll('.product');
+
+        produse.forEach(e=>{
+            for(let poz of img){
+                e.querySelector('img').src=poz.image;
+                e.querySelector('.loader').style.display="none";
+
+            }
+           
+        })
+    }
     insertProducts(e){
         let menCategory=document.querySelector('.products-men');
-        console.log(menCategory);
+        menCategory.appendChild(this.createContainer(e));
+
+      
         for(let product of e){
-             if(product.category==="men's clothing"){
-                 console.log(this.createContainer(product));
-                 menCategory.appendChild(this.createContainer(product));
+            menCategory.append(this.createContainer(product));
+        }
+        
+
+     this.addPhoto();
+
+    
+       
+    }
+    returnImages=()=>{
+        return  new Promise((resolve,reject)=>{
+
+        setTimeout(()=>{
+
+                resolve(this.data.getProducts());
+            },100)
+        });
+    }
+    // async generateProducts(){
+    //     let prorducts=document.querySelectorAll('.product');
+    //     console.log(prorducts);
+    //     try{
+    //         let d=await this.data.getProducts();
+    //         if(d!==null){
+              
+    //             this.insertProducts(d);
+    //         }
+    //     }catch(e){
+    //         return new Error(e);
+    //     }
+    // }
+    
+    insertProducts(e){
+        let menCategory=document.querySelector('.products-men');
+     
+        for(let product of e){
+            console.log(product);
+            menCategory.appendChild(this.createContainer(product));
+        }
+        
+
+     this.addPhoto();
+
+    
+       
+    }
+    // insertProducts(e){
+    //     let menCategory=document.querySelector('.products-men');
+    //     let womenCategory=document.querySelector('.products-women');
+    //     let electronicCategory=document.querySelector('.products-electronic');
+    //     let jewleryCategory=document.querySelector('.products-jewlery');
+
+    //     for(let product of e){
+    //          if(product.category==="men's clothing"){
+    //              menCategory.appendChild(this.createContainer(product));
                  
 
-             }
+    //          }else if(product.category==="women's clothing"){
+    //              womenCategory.appendChild(this.createContainer(product));
+    //          }else if(product.category==="electronics"){
+    //              electronicCategory.appendChild(this.createContainer(product));
+    //          }else if(product.category==="jewelery"){
+    //              jewleryCategory.appendChild(this.createContainer(product));
+    //          }
 
-        }
+    //     }
     
    
-    }
-    createContainer(element){
+    // }
+    
+    createContainer(element,imgB){
         let div=document.createElement('div');
-        div.className="product text-center col-lg-3 col-md-4 col-12";
+        div.className="product text-center col-lg-3 col-md-4 col-12 ";
         let img = document.createElement('img');
-        img.src=element.image;
-        img.className="img-fluid mb-3";
+        img.src=imgB;
+        img.className="img-fluid mb-3 product-img";
+        let loader=document.createElement('div');
+        loader.className="loader";
+        div.appendChild(loader);
+    
+    
         div.appendChild(img);
+
         let star=document.createElement('div');
         star.className="star";
         star.innerHTML=`
@@ -437,11 +368,11 @@ this.container.appendChild(footer);
         div.appendChild(star);
         let name=document.createElement('p');
         name.className="p-name";
-        name.textContent=element.title;
+        name.textContent=element.name;
         
         let price=document.createElement('p');
         price.className="p-price";
-        price.textContent=element.price;
+        price.innerHTML=`$${element.price}`;
         let button =document.createElement('button');
         button.className="buy-btn";
         button.textContent="Buy Now";
@@ -449,8 +380,11 @@ this.container.appendChild(footer);
         div.appendChild(name);
         div.appendChild(price);
         div.appendChild(button);
+        console.log(div);
         return div;
     }
+
+    
 
   
 }

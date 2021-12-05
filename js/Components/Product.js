@@ -1,3 +1,4 @@
+import Shop from "./Shop.js";
 export default class Product{
     constructor(product){
         this.container=document.querySelector('.container-first');
@@ -6,7 +7,8 @@ export default class Product{
         this.setNav();
         this.setMain();
         this.setFooter();
- 
+        this.nav=document.querySelector('nav');
+        this.nav.addEventListener('click',this.handleClickNav);
     
     }
     setNav=()=>{
@@ -21,25 +23,23 @@ export default class Product{
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
 
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="shop.html">Shop</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="blog.html">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact Us</a>
-                </li>
-                <li class="nav-item">
-                    <i class="fal fa-search"></i>
-                    <i onclick="window.location.href='cart.html';" class="fal fa-shopping-bag"></i>
-                </li>
+            <li class="nav-item">
+            <p class="nav-link home" style="color:coral;">Home</p>
+           </li>
+           <li class="nav-item">
+               <p class="nav-link shop">Shop</p>
+           </li>
+           <li class="nav-item">
+               <p class="nav-link contact">Contact Us</p>
+           </li>
+           <li class="nav-item">
+            
+               <p class="nav-link login">Log In</p>
+           </li>
+           <li class="nav-item">
+               <i class="fal fa-search"></i>
+               <i class="fal fa-shopping-bag"></i>
+           </li>
 
         </div>
     </div>
@@ -49,7 +49,6 @@ export default class Product{
     }
     setMain=()=>{
         let main=document.createElement('main');
-        console.log(this.product.img);
         main.innerHTML=`
         <section class="container sproduct my-5 pt-5">
         <div class="row mt-5">
@@ -124,5 +123,17 @@ export default class Product{
 </footer>
 `
 this.container.appendChild(footer);
+    }
+
+    handleClickNav=(e)=>{
+        let obj=e.target;
+        if(obj.classList.contains("shop")){
+            let shop=new Shop();
+        }else if(obj.classList.contains("home")){
+           let home=new Home();
+        }else if(obj.classList.contains("fa-shopping-bag")){
+        let cart=new Cart();
+        }
+
     }
 }
