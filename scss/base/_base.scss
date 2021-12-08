@@ -52,4 +52,23 @@ body{
         height: 2px;
         background-color: #fb774b;
     }
+    display: grid;
+    grid-template-areas: "navb" "head" "main" "footer";
+    
+
+
+
+    & header{
+        grid-area:head;
+
+    }
+    & main{
+        grid-area:main;
+    }
+    & nav{
+        grid-area:navb;
+    }
+    & footer{
+        grid-area:footer;
+    }
 }

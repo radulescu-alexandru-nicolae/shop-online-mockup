@@ -3,3 +3,10 @@ $font-stack-primary: 'IBM Plex Sans Arabic', sans-serif;
 $dimension-main:95%;
 $font-size-h2:1em;
 $background:#043C52;
+$contW: 900px;
+$imgW: 260px;
+$formW: $contW - $imgW;
+$switchAT: 1.2s;
+
+$inputW: 260px;
+$btnH: 36px;

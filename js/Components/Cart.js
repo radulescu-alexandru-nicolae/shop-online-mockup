@@ -10,13 +10,25 @@ export default class Cart{
         this.setFooter();
         this.nav=document.querySelector('nav');
         this.nav.addEventListener('click',this.handleClickNav);
+        this.customer;
+        this.products;
+        this.loadProducts();
+    }
+    loadCustomer=()=>{
+        let obj=JSON.parse(localStorage.getItem("customer"));
+        this.customer=obj;
+    }
+    loadProducts=()=>{
+        let obj=JSON.parse(localStorage.getItem("product"));
+        this.products=obj;
+        this.addProduct(obj);
     }
     setNav=()=>{
         let nav=document.createElement('nav');
         nav.className="navbar navbar-expand-lg navbar-light bg-white py-3 fixed-top";
         nav.innerHTML=`
         <div class="container">
-        <img src="img/logo1.png" alt="">
+        <img src="img/logo1.png" alt="" class="logo">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span><i id="bar" class="fas fa-bars"></i></span>
       </button>
@@ -24,7 +36,7 @@ export default class Cart{
             <ul class="navbar-nav ml-auto">
 
             <li class="nav-item">
-            <p class="nav-link home" >Home</p>
+            <p class="nav-link home" style="color:coral;">Home</p>
            </li>
            <li class="nav-item">
                <p class="nav-link shop">Shop</p>
@@ -38,7 +50,7 @@ export default class Cart{
            </li>
            <li class="nav-item">
                <i class="fal fa-search"></i>
-               <i class="fal fa-shopping-bag" style="color:coral;"></i>
+               <i class="fal fa-shopping-bag"></i>
            </li>
 
         </div>
@@ -67,49 +79,8 @@ export default class Cart{
                     <td>Total</td>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td><a href="#0"><i class="fas fa-trash-alt"></i></a></td>
-                    <td><img src="img/shoes/1.jpg" alt=""></td>
-                    <td>
-                        <h5>Handbag Fringilla</h5>
-                    </td>
-                    <td>
-                        <h5>$65</h5>
-                    </td>
-                    <td><input class="w-25 pl-1" type="number" value="1"></td>
-                    <td>
-                        <h5>$130.00 </h5>
-                    </td>
-                </tr>
-                <tr>
-                    <td><a href="#0"><i class="fas fa-trash-alt"></i></a></td>
-                    <td><img src="img/shoes/2.jpg" alt=""></td>
-                    <td>
-                        <h5>Handbag Fringilla</h5>
-                    </td>
-                    <td>
-                        <h5>$65</h5>
-                    </td>
-                    <td><input class="w-25 pl-1" type="number" value="1"></td>
-                    <td>
-                        <h5>$130.00 </h5>
-                    </td>
-                </tr>
-                <tr>
-                    <td><a href="#0"><i class="fas fa-trash-alt"></i></a></td>
-                    <td><img src="img/shoes/3.jpg" alt=""></td>
-                    <td>
-                        <h5>Handbag Fringilla</h5>
-                    </td>
-                    <td>
-                        <h5>$65</h5>
-                    </td>
-                    <td><input class="w-25 pl-1" type="number" value="1"></td>
-                    <td>
-                        <h5>$130.00 </h5>
-                    </td>
-                </tr>
+            <tbody class="container-products">
+              
             </tbody>
         </table>
     </section>
@@ -151,15 +122,21 @@ export default class Cart{
     }
     handleClickNav=(e)=>{
         let obj=e.target;
+        console.log(e.target);
         if(obj.classList.contains("shop")){
-        let shop=new Shop();
+         let shop=new Shop();
         }else if(obj.classList.contains("fa-shopping-bag")){
             let cart=new Cart();
         }else if(obj.classList.contains("home")){
             let home=new Home();
+        }else if(obj.classList.contains("login")){
+            let login=new Login();
+        }else if(obj.classList.contains("logo")){
+            let home=new Home();
         }
 
     }
+
      setFooter=()=>{
         let footer=document.createElement('footer');
         footer.innerHTML=`
@@ -206,5 +183,26 @@ export default class Cart{
 </footer>
 `
 this.container.appendChild(footer);
+    }
+    addProduct=(e)=>{
+        let tr=document.createElement('tr');
+        tr.innerHTML=`
+        <td><a href="#0"><i class="fas fa-trash-alt"></i></a></td>
+        <td><img src="${e.img}" alt=""></td>
+        <td>
+            <h5>${e.name}</h5>
+        </td>
+        <td>
+            <h5>${e.price}</h5>
+        </td>
+        <td><input class="w-25 pl-1" type="number" value="1"></td>
+        <td>
+            <h5>$130.00 </h5>
+        </td>
+        `;
+        let containerProducts=document.querySelector('.container-products');
+        console.log(containerProducts);
+        containerProducts.appendChild(tr);
+
     }
 }

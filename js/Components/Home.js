@@ -1,10 +1,11 @@
-import Data from "../API/Data.js";
+import ProductData from "../Elements/ProductData.js";
 import Cart from "./Cart.js";
+import Login from "./Login.js";
 import Product from "./Product.js";
 import Shop from "./Shop.js";
 
 export default class Home{
-    constructor(){
+    constructor(customer){
         this.container=document.querySelector('.container-first');
         this.container.innerHTML='';
         this.setNav();
@@ -16,13 +17,16 @@ export default class Home{
         this.main=document.querySelector('main');
         this.main.addEventListener('click',this.handleClickProduct);
         this.produs={};
-        this.data=new Data();
+        // this.data=new Data();
+        this.productData=new ProductData();
         // this.generateProducts();
         // this.data.createProducts();
         this.generateProductsDb();
-       
+        this.customer=customer;
+        
 
     }
+
 
 
     setNav=()=>{
@@ -30,7 +34,7 @@ export default class Home{
         nav.className="navbar navbar-expand-lg navbar-light bg-white py-3 fixed-top";
         nav.innerHTML=`
         <div class="container">
-        <img src="img/logo1.png" alt="">
+        <img src="img/logo1.png" alt="" class="logo">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span><i id="bar" class="fas fa-bars"></i></span>
       </button>
@@ -214,11 +218,16 @@ this.container.appendChild(footer);
     }
     handleClickNav=(e)=>{
         let obj=e.target;
+        console.log(e.target);
         if(obj.classList.contains("shop")){
          let shop=new Shop();
         }else if(obj.classList.contains("fa-shopping-bag")){
             let cart=new Cart();
         }else if(obj.classList.contains("home")){
+            let home=new Home();
+        }else if(obj.classList.contains("login")){
+            let login=new Login();
+        }else if(obj.classList.contains("logo")){
             let home=new Home();
         }
 
@@ -240,7 +249,7 @@ this.container.appendChild(footer);
     async generateProductsDb(){
     
         try{
-            let d=await this.data.getProductsDb();
+            let d=await this.productData.getProductsDb();
          
             if(d!==null){
 
@@ -255,6 +264,7 @@ this.container.appendChild(footer);
     }
     async addPhoto(){
         let img= await this.returnImages();
+      
 
         let produse=document.querySelectorAll('.product');
 
@@ -286,8 +296,7 @@ this.container.appendChild(footer);
         return  new Promise((resolve,reject)=>{
 
         setTimeout(()=>{
-
-                resolve(this.data.getProducts());
+                resolve(this.productData.getProducts());
             },100)
         });
     }
@@ -309,7 +318,6 @@ this.container.appendChild(footer);
         let menCategory=document.querySelector('.products-men');
      
         for(let product of e){
-            console.log(product);
             menCategory.appendChild(this.createContainer(product));
         }
         
@@ -380,7 +388,6 @@ this.container.appendChild(footer);
         div.appendChild(name);
         div.appendChild(price);
         div.appendChild(button);
-        console.log(div);
         return div;
     }
 

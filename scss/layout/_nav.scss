@@ -5,7 +5,9 @@ nav{
     left: 0;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 
-
+  & .logo{
+    cursor:pointer;
+  }
   & p{
     cursor: pointer;
   }

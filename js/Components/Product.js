@@ -1,3 +1,4 @@
+import Home from "./Home.js";
 import Shop from "./Shop.js";
 export default class Product{
     constructor(product){
@@ -9,8 +10,34 @@ export default class Product{
         this.setFooter();
         this.nav=document.querySelector('nav');
         this.nav.addEventListener('click',this.handleClickNav);
+        this.loadCustomer();
+        this.customer={};
+        this.produs={};
+        this.addCart=document.querySelector('.buy-btn');
+        this.sproduct=document.querySelector('.sproduct');
+        this.sproduct.addEventListener('click',this.getProduct);
+
+        
     
     }
+    loadCustomer=()=>{
+        let obj=JSON.parse(localStorage.getItem("customer"));
+        this.customer=obj;
+    }
+    getProduct=(e)=>{
+        let obj=e.target;
+      if(obj.classList.contains("buy-btn")){
+          console.log(e.target.parentNode.parentNode);
+          this.produs.name=document.querySelector('.name-product').textContent;
+          this.produs.img=document.querySelector('.img-fluid').src;
+          this.produs.price=document.querySelector('.price').textContent;
+          this.produs.quantity=document.querySelector('.quantity').value;
+          this.produs.customerId=this.customer.id;
+         window.localStorage.setItem("product",JSON.stringify(this.produs));
+         let home=new Home(this.customer);
+      }
+    }
+
     setNav=()=>{
         let nav=document.createElement('nav');
         nav.className="navbar navbar-expand-lg navbar-light bg-white py-3 fixed-top";
@@ -57,8 +84,8 @@ export default class Product{
             </div>
             <div class="col-lg-6 col-md-12 col-12">
                 <h6>Home / T-Shirt</h6>
-                <h3 class="py-4">${this.product.name}</h3>
-                <h2>${this.product.price}</h2>
+                <h3 class="py-4 name-product">${this.product.name}</h3>
+                <h2 class="price">${this.product.price}</h2>
                 <select class="my-3">
                   <option>Select Size</option>
                   <option>XL</option>
@@ -66,7 +93,7 @@ export default class Product{
                   <option>Small</option>
                   <option>Large</option>
                 </select>
-                <input type="number" value="1">
+                <input type="number" value="1" class="quantity">
                 <button class="buy-btn">Add To Cart</button>
                 <h4 class="mt-5 mb-4">Product Details</h4>
                 <span>The Gildan Ultra Cotton T-shirt is made from a substantial 6.0 oz. per sq. yd. fabric constructed from 100% cotton, this classic fit preshrunk jersey knit provides unmatched comfort with each wear. Featuring a taped neck and shoulder, and a seamless double-needle collar, and available in a range of colors, it offers it all in the ultimate head-turning package.</span>

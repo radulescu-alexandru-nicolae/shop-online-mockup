@@ -20,4 +20,8 @@
             @content;
         }
     }
-}
+} @mixin signUpActive {
+    .cont.s--signup & {
+      @content;
+    }
+  }

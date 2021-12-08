@@ -1,6 +1,8 @@
-import Data from "../API/Data.js";
+import ProductData from "../Elements/ProductData.js";
 import Cart from "./Cart.js";
 import Home from "./Home.js";
+import Product from "./Product.js";
+import Login from "./Login.js";
 
 export default class Shop{
     constructor(){
@@ -11,7 +13,8 @@ export default class Shop{
         this.setFooter();
         this.nav=document.querySelector('nav');
         this.nav.addEventListener('click',this.handleClickNav);
-        this.data=new Data();
+        // this.data=new Data();
+        this.productData=new ProductData();
         this.generateProducts();
     }
     setNav=()=>{
@@ -19,7 +22,7 @@ export default class Shop{
         nav.className="navbar navbar-expand-lg navbar-light bg-white py-3 fixed-top";
         nav.innerHTML=`
         <div class="container">
-        <img src="img/logo1.png" alt="">
+        <img src="img/logo1.png" alt="" class="logo">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span><i id="bar" class="fas fa-bars"></i></span>
       </button>
@@ -27,10 +30,10 @@ export default class Shop{
             <ul class="navbar-nav ml-auto">
 
             <li class="nav-item">
-            <p class="nav-link home" >Home</p>
+            <p class="nav-link home" style="color:coral;">Home</p>
            </li>
-           <li class="nav-item" " >
-               <p class="nav-link shop" style="color:coral;">Shop</p>
+           <li class="nav-item">
+               <p class="nav-link shop">Shop</p>
            </li>
            <li class="nav-item">
                <p class="nav-link contact">Contact Us</p>
@@ -86,13 +89,17 @@ export default class Shop{
     }
     handleClickNav=(e)=>{
         let obj=e.target;
+        console.log(e.target);
         if(obj.classList.contains("shop")){
-            console.log('e');
-        let shop=new Shop();
-        }else if(obj.classList.contains("home")){
-           let home=new Home();
+         let shop=new Shop();
         }else if(obj.classList.contains("fa-shopping-bag")){
-          let cart=new Cart();
+            let cart=new Cart();
+        }else if(obj.classList.contains("home")){
+            let home=new Home();
+        }else if(obj.classList.contains("login")){
+            let login=new Login();
+        }else if(obj.classList.contains("logo")){
+            let home=new Home();
         }
 
     }
@@ -145,7 +152,7 @@ this.container.appendChild(footer);
     }   
     async generateProducts(){
         try{
-            let d=await this.data.getProducts();
+            let d=await this.productData.getProducts();
             if(d!==null){
                
                 this.insertProducts(d);
