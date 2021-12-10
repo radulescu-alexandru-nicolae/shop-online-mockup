@@ -11,22 +11,31 @@ export default class Login{
              this.setNav();
         this.setMain();
         this.setFooter();
-        this.loginMeniu();
+        // this.loginMeniu();
         this.nav=document.querySelector('nav');
         this.nav.addEventListener('click',this.handleClickNav);
         this.customerData=new CustomerData();
         this.newCustomer={};
         this.loginCustomer={};
-        
-        this.cont=document.querySelector('.cont');
-        this.cont.addEventListener('change',this.handleChange);
-        this.submitSignUp=document.querySelector('.submit-sign-up');
-        this.submitSignUp.addEventListener('click',this.handleSubmit);
-        this.submitSignIn=document.querySelector('.submit-sign-in');
-        this.signIn=document.querySelector('.sign-in');
+        this.create=document.querySelector('.create');
+        this.create.addEventListener('change',this.handleChange);
+        this.signIn=document.querySelector('.signIn');
         this.signIn.addEventListener('change',this.handleChangeLogin);
-       
+        this.submitSignUp=document.querySelector('.submitCreateButton');
+        this.submitSignUp.addEventListener('click',this.handleSubmit);
+        this.submitSignIn=document.querySelector('.submitSignIn');
         this.submitSignIn.addEventListener('click',this.handleSubmitLogin);
+        // this.cont=document.querySelector('.cont');
+        // this.cont.addEventListener('change',this.handleChange);
+        // this.submitSignUp=document.querySelector('.submit-sign-up');
+        // this.submitSignUp.addEventListener('click',this.handleSubmit);
+        // this.submitSignIn=document.querySelector('.submit-sign-in');
+        // this.signIn=document.querySelector('.sign-in');
+        // this.signIn.addEventListener('change',this.handleChangeLogin);
+       
+        // this.submitSignIn.addEventListener('click',this.handleSubmitLogin);
+        this.loginMeniu=document.querySelector('.login-meniu');
+        this.loginMeniu.addEventListener('click',this.changeLogin);
         
       
     }
@@ -56,7 +65,7 @@ export default class Login{
              <p class="nav-link login">Log In</p>
          </li>
          <li class="nav-item">
-             <i class="fal fa-search"></i>
+         <i class="fas fa-user-circle"></i>
              <i class="fal fa-shopping-bag"></i>
          </li>
 
@@ -70,56 +79,79 @@ export default class Login{
         let main=document.createElement('main');
         main.className="login-container";
         main.innerHTML=`
-        <form class="cont">
-        <article class="form sign-in">
-          <h2>Welcome back,</h2>
-          <label>
-            <span>Email</span>
-            <input class="login-email type="email" />
-          </label>
-          <label>
-            <span>Password</span>
-            <input class="login-password" type="password" />
-          </label>
-          <p class="forgot-pass">Forgot password?</p>
-          <button type="button" class="submit-sign-in">Sign In</button>
-        </article>
-        <article class="sub-cont">
-          <article class="img">
-            <div class="img__text m--up">
-              <h2>New here?</h2>
-              <p>Sign up and discover great amount of new opportunities!</p>
-            </div>
-            <div class="img__text m--in">
-              <h2>One of us?</h2>
-              <p>If you already has an account, just sign in. We've missed you!</p>
-            </div>
-            <div class="img__btn">
-              <span class="m--up">Sign Up</span>
-              <span class="m--in">Sign In</span>
-            </div>
-          </article>
-          <article class="form sign-up">
-            <h2>Time to feel like home,</h2>
-      
-            <label>
-              <span>Email</span>
-              <input class="create-email" type="email" />
-            </label>
-            <label>
-              <span>Password</span>
-              <input class="create-password" type="password" />
-            </label>
-            <label>
-            <span>Addres</span>
-            <input class="create-addres" type="text" />
-          </label>
-            <button type="button" class="submit-sign-up">Sign Up</button>
-          </article>
-        </article>
-    </form>
+        <article class="login-meniu">
+        <section class="img-login">
+        </section>
+        <section class="signIn displayOff">
+            <section class="title-signIn">
+                <h2>Sign In</h2>
+                <i class="fab fa-facebook-f"></i>
+            </section>
+            <section class="form-signIn container-form">
+                <form action="">
+                  <section class="inputContainer">
+                    <label for="username">Email</label>
+                    <input type="text" placeholder="Email" class="login-email">
+                    <label for="passowrd">Password</label>
+                    <input type="password" placeholder="Password" class="login-password">
+                  </section>
+                    <button class="submitSignIn">Sign In</button>
+                    <section class="container-forgot-password">
+                        <div class="remember">
+                            <input type="checkbox">
+                            <p>Remember me</p>
+                        </div>
+                        <h5 class="forgot-password">Forgot Password</h5>
+                    </section>
+
+                    <p class="notMember">Not a member?<span  class="signUpButton">Sign Up</span></p>
+
+                </form>
+            </section>
+            
+        </section>
+ 
+        <section class="create"> 
+            <section class="title-signIn">
+                <h2>Create account</h2>
+                <i class="fab fa-facebook-f"></i>
+            </section>
+            <section class="form-logIn container-form">
+                <form action="">
+                  <section class="inputContainer">
+                    <label for="username">Email</label>
+                    <input type="text" placeholder="Email" class="create-email">
+                    <label for="passowrd">Password</label>
+                    <input type="password" placeholder="Password" class="create-password">
+                    <label for="addres">Addres</label>
+                    <input type="text" placeholder="Addres" class="create-addres">
+                  </section>
+                    <button class="submitCreateButton">Create account</button>
+                  
+
+                    <p class="notMember">If you have already an account<span class="logInChange">Log In</span></p>
+
+                </form>
+            </section>
+            
+        </section> 
+ 
+    </article>
         `
         this.container.appendChild(main);
+    }
+
+    changeLogin=(e)=>{
+      let obj=e.target;
+      this.newCustomer={};
+      if(obj.classList.contains("signUpButton")){
+        document.querySelector('.displayOff').className="create";
+        document.querySelector('.signIn').className="displayOff";
+
+      } else if(obj.classList.contains("logInChange")){
+        document.querySelector('.displayOff').className="signIn";
+        document.querySelector('.create').className="displayOff";
+      }
     }
     setFooter=()=>{
         let footer=document.createElement('footer');
@@ -184,11 +216,11 @@ this.container.appendChild(footer);
       }
 
   }
-    loginMeniu=()=>{
-            document.querySelector('.img__btn').addEventListener('click', function() {
-                document.querySelector('.cont').classList.toggle('s--signup');
-              });
-    }
+    // loginMeniu=()=>{
+    //         document.querySelector('.img__btn').addEventListener('click', function() {
+    //             document.querySelector('.cont').classList.toggle('s--signup');
+    //           });
+    // }
 
 
   handleChange=(e)=>{
@@ -201,6 +233,7 @@ this.container.appendChild(footer);
     }else if(obj.classList.contains('create-addres')){
       this.newCustomer.addres=obj.value;
     }
+    console.log(this.newCustomer);
   }
   handleChangeLogin=(e)=>{
     let obj=e.target;
@@ -209,6 +242,7 @@ this.container.appendChild(footer);
     }else if(obj.classList.contains('login-password')){
       this.loginCustomer.password=obj.value;
     }
+    console.log(this.loginCustomer);
   }
   handleSubmitLogin=async(e)=>{
     try{

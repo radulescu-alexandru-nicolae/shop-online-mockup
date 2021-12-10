@@ -34,7 +34,7 @@ export default class Cart{
       </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-
+  
             <li class="nav-item">
             <p class="nav-link home" style="color:coral;">Home</p>
            </li>
@@ -49,10 +49,10 @@ export default class Cart{
                <p class="nav-link login">Log In</p>
            </li>
            <li class="nav-item">
-               <i class="fal fa-search"></i>
+           <i class="fas fa-user-circle"></i>
                <i class="fal fa-shopping-bag"></i>
            </li>
-
+  
         </div>
     </div>
         
