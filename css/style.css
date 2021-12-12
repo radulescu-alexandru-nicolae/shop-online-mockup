@@ -715,10 +715,6 @@ footer .copyright a:hover {
     transform: rotate(360deg);
   }
 }
-body {
-  background-color: #eeecec80;
-}
-
 .login-meniu {
   width: 90%;
   border-radius: 10px;
@@ -872,13 +868,37 @@ body {
     width: 500px;
   }
   .login-meniu .create {
-    max-width: 450px;
+    max-width: 500px;
     margin: auto;
     width: 500px;
   }
 }
 .login-meniu .notMember {
   cursor: pointer;
+}
+.login-meniu .inputContainer div {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: center;
+}
+.login-meniu .inputContainer div i {
+  position: absolute;
+  right: -15px;
+  bottom: 15px;
+  font-size: 20px;
+  color: goldenrod;
+  cursor: pointer;
+  display: none;
+}
+.login-meniu .inputContainer div p {
+  color: goldenrod;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  font-size: 15px;
+  max-width: 350px;
+  display: none;
 }
 
 /*# sourceMappingURL=style.css.map */

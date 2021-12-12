@@ -11,7 +11,6 @@ export default class Login{
              this.setNav();
         this.setMain();
         this.setFooter();
-        // this.loginMeniu();
         this.nav=document.querySelector('nav');
         this.nav.addEventListener('click',this.handleClickNav);
         this.customerData=new CustomerData();
@@ -25,17 +24,10 @@ export default class Login{
         this.submitSignUp.addEventListener('click',this.handleSubmit);
         this.submitSignIn=document.querySelector('.submitSignIn');
         this.submitSignIn.addEventListener('click',this.handleSubmitLogin);
-        // this.cont=document.querySelector('.cont');
-        // this.cont.addEventListener('change',this.handleChange);
-        // this.submitSignUp=document.querySelector('.submit-sign-up');
-        // this.submitSignUp.addEventListener('click',this.handleSubmit);
-        // this.submitSignIn=document.querySelector('.submit-sign-in');
-        // this.signIn=document.querySelector('.sign-in');
-        // this.signIn.addEventListener('change',this.handleChangeLogin);
-       
-        // this.submitSignIn.addEventListener('click',this.handleSubmitLogin);
+     
         this.loginMeniu=document.querySelector('.login-meniu');
-        this.loginMeniu.addEventListener('click',this.changeLogin);
+        this.loginMeniu.addEventListener('click',this.changeLogin); 
+    
         
       
     }
@@ -82,7 +74,7 @@ export default class Login{
         <article class="login-meniu">
         <section class="img-login">
         </section>
-        <section class="signIn displayOff">
+        <section class="signIn "> 
             <section class="title-signIn">
                 <h2>Sign In</h2>
                 <i class="fab fa-facebook-f"></i>
@@ -111,7 +103,7 @@ export default class Login{
             
         </section>
  
-        <section class="create"> 
+        <section class="create displayOff " > 
             <section class="title-signIn">
                 <h2>Create account</h2>
                 <i class="fab fa-facebook-f"></i>
@@ -119,12 +111,27 @@ export default class Login{
             <section class="form-logIn container-form">
                 <form action="">
                   <section class="inputContainer">
-                    <label for="username">Email</label>
-                    <input type="text" placeholder="Email" class="create-email">
-                    <label for="passowrd">Password</label>
-                    <input type="password" placeholder="Password" class="create-password">
-                    <label for="addres">Addres</label>
-                    <input type="text" placeholder="Addres" class="create-addres">
+                      <div class="container-create-email">
+                        <label for="username">Email</label>
+                        <input type="text" placeholder="Email" class="create-email">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <p  class="incorect-email">Email must contains @</p>
+                        <p class="existing-email">Ther is already an account with this email</p>
+                      </div>
+            
+                      <div class="container-create-password">
+                        <label for="passowrd">Password</label>
+                        <input type="password" placeholder="Password" class="create-password">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <p>Must contain a lowercase,uppercase letter and a number</p>
+                      </div>
+                  
+                      <div class="container-create-addres">
+                        <label for="addres">Addres</label>
+                        <input type="text" placeholder="Addres" class="create-addres">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <p>You need to have at least 6 characters</p>
+                      </div>
                   </section>
                     <button class="submitCreateButton">Create account</button>
                   
@@ -133,9 +140,7 @@ export default class Login{
 
                 </form>
             </section>
-            
         </section> 
- 
     </article>
         `
         this.container.appendChild(main);
@@ -216,24 +221,76 @@ this.container.appendChild(footer);
       }
 
   }
-    // loginMeniu=()=>{
-    //         document.querySelector('.img__btn').addEventListener('click', function() {
-    //             document.querySelector('.cont').classList.toggle('s--signup');
-    //           });
-    // }
+  handle=(validator)=>{
 
 
+  if(validator!==true){
+return false;
+  }
+  return true;
+  
+  }
+   isValidEmail(email){
+   
+    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+}
+ isValidPassword(password){
+  return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(password);
+}
+async returnCustomers(){
+return new Promise((resolve,reject)=>{
+
+  setTimeout(()=>{
+    resolve(this.customerData.getCustomers());
+  },100)
+
+})
+
+}
+async checkEmail(email){
+  let customers=await this.returnCustomers();
+  let ok=0;
+  for(let cust of customers){
+    if(cust.email===email){
+    ok=1;
+   
+    }
+  }
+  if(ok===1){
+    document.querySelectorAll('.container-create-email p')[1].style.display="unset";
+ 
+  }else{
+    document.querySelectorAll('.container-create-email p')[1].style.display="none";
+    this.newCustomer.email=email;
+  }
+
+}
   handleChange=(e)=>{
     let obj=e.target;
-    
     if(obj.classList.contains('create-password')){
-    this.newCustomer.password=obj.value;
+      if(this.handle(this.isValidPassword(obj.value))===false){
+        obj.parentNode.querySelector('p').style.display="unset";
+      }else{
+        obj.parentNode.querySelector('p').style.display="none";
+        this.newCustomer.password=obj.value;
+      }
+  
+    
     }else if(obj.classList.contains('create-email')){
-      this.newCustomer.email=obj.value;
+      if(this.handle(this.isValidEmail(obj.value))===false){
+        obj.parentNode.querySelectorAll('p')[0].style.display="block";
+        obj.parentNode.querySelector('i').style.display="unset";
+        
+      }else if(this.handle(this.isValidEmail(obj.value))===true){
+        obj.parentNode.querySelectorAll('p')[0].style.display="none";
+        obj.parentNode.querySelector('i').style.display="none";
+        this.checkEmail(obj.value);
+      }
+
     }else if(obj.classList.contains('create-addres')){
       this.newCustomer.addres=obj.value;
     }
-    console.log(this.newCustomer);
+  
   }
   handleChangeLogin=(e)=>{
     let obj=e.target;
@@ -242,24 +299,20 @@ this.container.appendChild(footer);
     }else if(obj.classList.contains('login-password')){
       this.loginCustomer.password=obj.value;
     }
-    console.log(this.loginCustomer);
+
   }
   handleSubmitLogin=async(e)=>{
+    e.preventDefault();
     try{
     
    
 
-      let ok=await this.customerData.connect(this.loginCustomer.email,this.loginCustomer.password);
-     this.getIdCustomer(this.loginCustomer.email);
+  
      
-    
      
-    
-   
+    this.customerData.connect(this.loginCustomer.email,this.loginCustomer.password)
 
-      if(ok===1){
-        let home=new Home(this.loginCustomer);
-      }
+  
     
     }catch(error){
       console.log(error);
@@ -268,36 +321,19 @@ this.container.appendChild(footer);
   handleSubmit=async (e)=>{
     e.preventDefault();
     try{
-      this.customerData.createCustomer(this.newCustomer);
+      console.log(this.newCustomer);
+      if(this.newCustomer.email!==undefined&&this.newCustomer.password!==undefined){
+        console.log('a');
+        this.customerData.createCustomer(this.newCustomer);
+
+      }
       let login=new Login();
     }catch(error){
       console.log(error);
     }
   }
 
-  async getIdCustomer(email){
-    let customers=await this.customerData.getCustomers();
-  let id;
-  
-  return new Promise((resolve,reject)=>{
-    for(let c of customers){
-      if(c.email===email){
-      
-     id=c.id;
-     resolve(id);
-    }
-      
-  
-  
-    }
-  }).then((id)=>{
-    this.loginCustomer.id=id;
-     window.localStorage.setItem("customer",JSON.stringify(this.loginCustomer));
-  
-  })
 
-
-  }
 
   
 

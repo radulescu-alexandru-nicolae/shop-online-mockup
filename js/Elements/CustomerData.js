@@ -1,4 +1,5 @@
 import Api from "../API/Api.js";
+import Home from "../Components/Home.js";
 
 export default class CustomerData{
     constructor(){
@@ -35,17 +36,22 @@ export default class CustomerData{
 
     async connect(email,password){
         let customers=await this.getCustomers();
-        return new Promise((resolve,reject)=>{
-            let ok=0;
-            for(let customer of customers){
-                if(customer.email===email&&customer.password===password){
-                    ok=1;
+  
+       let p= new Promise((resolve,reject)=>{
+            for(let c of customers){
+                if(c.email===email&&c.password===password){
+                    resolve(c);
+                   
+                   
                 }
             }
-            resolve(ok);
-
+        })
+        p.then((c)=>{
+            let home=new Home(c);
         })
     }
+ 
+  
 
 
 

@@ -2,7 +2,7 @@ import Home from "./Home.js";
 import Shop from "./Shop.js";
 
 export default class Cart{
-    constructor(){
+    constructor(customer){
         this.container=document.querySelector('.container-first');
         this.container.innerHTML=``;
         this.setNav();
@@ -10,18 +10,40 @@ export default class Cart{
         this.setFooter();
         this.nav=document.querySelector('nav');
         this.nav.addEventListener('click',this.handleClickNav);
-        this.customer;
         this.products;
+        this.customer=customer;
         this.loadProducts();
+this.checkLogin();
     }
-    loadCustomer=()=>{
-        let obj=JSON.parse(localStorage.getItem("customer"));
-        this.customer=obj;
+    checkLogin=()=>{
+ 
+        if(this.customer===undefined){
+            document.querySelector('.login').style.display="unset";
+            document.querySelector('.signout').style.display="none";
+            window.localStorage.removeItem("customer");
+            document.querySelector('.fa-user-circle').style.color="unset"
+        }else if(this.customer!==undefined){
+           window.localStorage.setItem("customer",JSON.stringify(this.customer));
+        
+               document.querySelector('.login').style.display="none";
+               document.querySelector('.signout').style.display="unset";
+               document.querySelector('.fa-user-circle').style.color="#fb774b";
+        }
+
     }
+   
     loadProducts=()=>{
         let obj=JSON.parse(localStorage.getItem("product"));
-        this.products=obj;
-        this.addProduct(obj);
+  
+      if(obj!==null){
+          obj.forEach(e=>{
+              if(e.customerId===this.customer.id){
+                this.addProduct(e);
+
+              }
+          })
+      }
+       
     }
     setNav=()=>{
         let nav=document.createElement('nav');
@@ -47,6 +69,7 @@ export default class Cart{
            <li class="nav-item">
             
                <p class="nav-link login">Log In</p>
+               <p class="nav-link signout">Sign Out</p>
            </li>
            <li class="nav-item">
            <i class="fas fa-user-circle"></i>
@@ -128,11 +151,11 @@ export default class Cart{
         }else if(obj.classList.contains("fa-shopping-bag")){
             let cart=new Cart();
         }else if(obj.classList.contains("home")){
-            let home=new Home();
+            let home=new Home(this.customer);
         }else if(obj.classList.contains("login")){
             let login=new Login();
         }else if(obj.classList.contains("logo")){
-            let home=new Home();
+            let home=new Home(this.customer);
         }
 
     }

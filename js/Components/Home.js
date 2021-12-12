@@ -17,16 +17,31 @@ export default class Home{
         this.main=document.querySelector('main');
         this.main.addEventListener('click',this.handleClickProduct);
         this.produs={};
-        // this.data=new Data();
         this.productData=new ProductData();
-        // this.generateProducts();
-        // this.data.createProducts();
         this.generateProductsDb();
         this.customer=customer;
+
+       this.checkLogin();
         
 
     }
 
+
+    checkLogin=()=>{
+ 
+        if(this.customer===undefined){
+            document.querySelector('.login').style.display="unset";
+            document.querySelector('.signout').style.display="none";
+            window.localStorage.removeItem("customer");
+            document.querySelector('.fa-user-circle').style.color="unset"
+        }else if(this.customer!==undefined){
+           window.localStorage.setItem("customer",JSON.stringify(this.customer));
+        
+               document.querySelector('.login').style.display="none";
+               document.querySelector('.signout').style.display="unset";
+               document.querySelector('.fa-user-circle').style.color="#fb774b";
+        }
+    }
 
 
     setNav=()=>{
@@ -53,6 +68,7 @@ export default class Home{
            <li class="nav-item">
             
                <p class="nav-link login">Log In</p>
+               <p class="nav-link signout">Sign Out</p>
            </li>
            <li class="nav-item">
            <i class="fas fa-user-circle"></i>
@@ -218,17 +234,19 @@ this.container.appendChild(footer);
     }
     handleClickNav=(e)=>{
         let obj=e.target;
-        console.log(e.target);
         if(obj.classList.contains("shop")){
          let shop=new Shop();
         }else if(obj.classList.contains("fa-shopping-bag")){
-            let cart=new Cart();
+            let cart=new Cart(this.customer);
         }else if(obj.classList.contains("home")){
             let home=new Home();
         }else if(obj.classList.contains("login")){
             let login=new Login();
         }else if(obj.classList.contains("logo")){
             let home=new Home();
+        }else if(obj.classList.contains("signout")){
+            let home=new Home();
+            window.localStorage.removeItem("customer");
         }
 
     }
@@ -243,7 +261,7 @@ this.container.appendChild(footer);
                 img:produsCont.querySelector('img').src
 
            }
-           let product=new Product(this.produs);
+           let product=new Product(this.produs,this.customer);
         }
     }
     async generateProductsDb(){
@@ -300,19 +318,7 @@ this.container.appendChild(footer);
             },100)
         });
     }
-    // async generateProducts(){
-    //     let prorducts=document.querySelectorAll('.product');
-    //     console.log(prorducts);
-    //     try{
-    //         let d=await this.data.getProducts();
-    //         if(d!==null){
-              
-    //             this.insertProducts(d);
-    //         }
-    //     }catch(e){
-    //         return new Error(e);
-    //     }
-    // }
+  
     
     insertProducts(e){
         let menCategory=document.querySelector('.products-men');
@@ -327,29 +333,7 @@ this.container.appendChild(footer);
     
        
     }
-    // insertProducts(e){
-    //     let menCategory=document.querySelector('.products-men');
-    //     let womenCategory=document.querySelector('.products-women');
-    //     let electronicCategory=document.querySelector('.products-electronic');
-    //     let jewleryCategory=document.querySelector('.products-jewlery');
-
-    //     for(let product of e){
-    //          if(product.category==="men's clothing"){
-    //              menCategory.appendChild(this.createContainer(product));
-                 
-
-    //          }else if(product.category==="women's clothing"){
-    //              womenCategory.appendChild(this.createContainer(product));
-    //          }else if(product.category==="electronics"){
-    //              electronicCategory.appendChild(this.createContainer(product));
-    //          }else if(product.category==="jewelery"){
-    //              jewleryCategory.appendChild(this.createContainer(product));
-    //          }
-
-    //     }
-    
    
-    // }
     
     createContainer(element,imgB){
         let div=document.createElement('div');

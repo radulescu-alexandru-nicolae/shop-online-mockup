@@ -1,7 +1,7 @@
 import Home from "./Home.js";
 import Shop from "./Shop.js";
 export default class Product{
-    constructor(product){
+    constructor(product,customer){
         this.container=document.querySelector('.container-first');
         this.container.innerHTML=``;
         this.product=product;
@@ -10,30 +10,47 @@ export default class Product{
         this.setFooter();
         this.nav=document.querySelector('nav');
         this.nav.addEventListener('click',this.handleClickNav);
-        this.loadCustomer();
-        this.customer={};
+        // this.loadCustomer();
+        
         this.produs={};
         this.addCart=document.querySelector('.buy-btn');
         this.sproduct=document.querySelector('.sproduct');
         this.sproduct.addEventListener('click',this.getProduct);
+        this.customer=customer;
+        this.produse=[];
+        // this.load();
+
+        this.load();
 
         
     
     }
-    loadCustomer=()=>{
-        let obj=JSON.parse(localStorage.getItem("customer"));
-        this.customer=obj;
+    // loadCustomer=()=>{
+    //     let obj=JSON.parse(localStorage.getItem("customer"));
+    //     this.customer=obj;
+    // }
+    load=()=>{
+        let obj=JSON.parse(localStorage.getItem("product"));
+        if(obj!==null){
+            obj.forEach(e=>{
+                this.produse.push(e);
+            })
+        }
+ 
+
     }
     getProduct=(e)=>{
         let obj=e.target;
       if(obj.classList.contains("buy-btn")){
-          console.log(e.target.parentNode.parentNode);
           this.produs.name=document.querySelector('.name-product').textContent;
           this.produs.img=document.querySelector('.img-fluid').src;
           this.produs.price=document.querySelector('.price').textContent;
           this.produs.quantity=document.querySelector('.quantity').value;
           this.produs.customerId=this.customer.id;
-         window.localStorage.setItem("product",JSON.stringify(this.produs));
+          this.produse.push(this.produs);
+          console.log(this.produse);
+         window.localStorage.setItem("product",JSON.stringify(this.produse));
+
          let home=new Home(this.customer);
       }
     }

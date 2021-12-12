@@ -1,7 +1,3 @@
-body{
-  background-color:#eeecec80 ;
-}
-
 .login-meniu{
   width: 90%;
   border-radius: 10px;
@@ -152,7 +148,7 @@ body{
       width: 500px;
     }
     & .create{
-      max-width:450px;
+      max-width:500px;
       margin:auto;
       width: 500px;
     }
@@ -160,4 +156,28 @@ body{
   & .notMember{
     cursor:pointer;
   }
+  & .inputContainer div{
+    @include flexy($dir:column);
+    position: relative;
+    justify-content: center;
+    & i{
+      position:absolute;
+      right:-15px;;
+      bottom: 15px;
+      font-size: 20px;
+      color:goldenrod;
+      cursor: pointer;
+     display: none;
+    }
+    & p{
+      color:goldenrod;
+      position:absolute;
+      right:10px;
+      top:5px;
+      font-size: 15px;
+      max-width: 350px;
+     display: none;
+    }
+  }
+
 }
